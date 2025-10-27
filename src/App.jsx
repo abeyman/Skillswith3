@@ -7,7 +7,7 @@ import React, { useMemo, useState } from "react";
 
 const Button = ({ children, onClick, variant = "primary", className = "", ...props }) => {
   const base =
-    "inline-flex items-center justify-center rounded-xl px-4 py-...ld transition active:scale-[.98] focus:outline-none focus:ring";
+    "inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium transition active:scale-[.98] focus:outline-none focus:ring";
   const variants = {
     primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-300",
     secondary: "border border-slate-300 text-slate-800 hover:bg-slate-100",
@@ -30,7 +30,7 @@ const Card = ({ title, children, footer, className = "" }) => (
 );
 
 const Badge = ({ children, color = "blue" }) => (
-  <span className={`inline-flex items-center rounded-full px-2 p...font-medium bg-${color}-50 text-${color}-700`}>{children}</span>
+  <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-${color}-50 text-${color}-700`}>{children}</span>
 );
 
 // Util: simple pill
@@ -56,23 +56,23 @@ const Modal = ({ open, onClose, title, children, actions }) => {
   );
 };
 
-// Fake data
+// Fixed data - исправлены некорректные объекты
 const employees = [
   { id: "e001", name: "Иван Петров", role: "Data Analyst", dept: "Маркетинг", skills: { SQL: 80, Tableau: 75, Python: 65 } },
-  { id: "e002", name: "Анна Смирнова", role: "Product Manager", ... "Продукт", skills: { Leadership: 60, UX: 70, Analytics: 65 } },
+  { id: "e002", name: "Анна Смирнова", role: "Product Manager", dept: "Продукт", skills: { Leadership: 60, UX: 70, Analytics: 65 } },
   { id: "e003", name: "Дмитрий Орлов", role: "ML Engineer", dept: "R&D", skills: { Python: 85, ML: 78, MLOps: 62 } },
   { id: "e004", name: "Елена Лебедева", role: "HRBP", dept: "HR", skills: { Communication: 88, Coaching: 72, Analytics: 40 } },
 ];
 
 const gigs = [
-  { id: "p101", title: "Аналитика клиентов", skills: ["SQL", "Ta..."2 мес", load: "40%", desc: "Воронка, когортный анализ, LTV." },
-  { id: "p102", title: "HR-AI MVP", skills: ["ML", "UX"], durati...", load: "20%", desc: "Прототип ассистента для HR-процессов." },
-  { id: "p103", title: "Автоматизация отчётности", skills: ["Pyt...ь", load: "30%", desc: "Сбор и публикация метрик в дашборде." },
+  { id: "p101", title: "Аналитика клиентов", skills: ["SQL", "Tableau"], duration: "2 мес", load: "40%", desc: "Воронка, когортный анализ, LTV." },
+  { id: "p102", title: "HR-AI MVP", skills: ["ML", "UX"], duration: "3 мес", load: "20%", desc: "Прототип ассистента для HR-процессов." },
+  { id: "p103", title: "Автоматизация отчётности", skills: ["Python", "SQL"], duration: "1 мес", load: "30%", desc: "Сбор и публикация метрик в дашборде." },
 ];
 
 const plans = [
-  { id: "pilot", name: "Pilot", price: "0 €", desc: "Бесплатно 3...сотрудников", features: ["Основные функции", "Быстрый старт"] },
-  { id: "growth", name: "Growth", price: "3 €/сотр/мес", desc: "...", features: ["Основные функции", "Персонификация стоимости"] },
+  { id: "pilot", name: "Pilot", price: "0 €", desc: "Бесплатно 3 месяца для 300 сотрудников", features: ["Основные функции", "Быстрый старт"] },
+  { id: "growth", name: "Growth", price: "3 €/сотр/мес", desc: "Полный функционал для средних компаний", features: ["Основные функции", "Персонификация стоимости"] },
   { id: "ent", name: "Enterprise", price: "Индивидуально", desc: "SSO, SLA, кастомные интеграции", features: ["SSO", "SLA", "Интеграции"] },
 ];
 
@@ -94,7 +94,7 @@ export default function SkillSwitchMVP() {
   const [importedCount, setImportedCount] = useState(0);
   const [headcount, setHeadcount] = useState(300);
 
-  const showToast = (t) => { setToast(t); setTimeout(() => setToast("");, 2000); };
+  const showToast = (t) => { setToast(t); setTimeout(() => setToast(""), 2000); };
 
   const monthly = useMemo(() => Math.max(0, Math.round(headcount * 3)), [headcount]);
 
@@ -149,7 +149,7 @@ export default function SkillSwitchMVP() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-...-slate-900 px-4 py-2 text-sm text-white shadow-lg">{toast}</div>
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-slate-900 px-4 py-2 text-sm text-white shadow-lg">{toast}</div>
       )}
 
       {/* Modals */}
@@ -238,18 +238,20 @@ export default function SkillSwitchMVP() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1 block text-sm font-medium">Загрузка</label>
-              <select className="w-full rounded-lg border border...on>30%</option><option>40%</option><option>60%</option></select>
+              <select className="w-full rounded-lg border border-slate-300 px-3 py-2"><option>20%</option><option>30%</option><option>40%</option><option>60%</option></select>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium">Отдел</label>
-              <select className="w-full rounded-lg border border...Продукт</option><option>R&D</option><option>HR</option></select>
+              <select className="w-full rounded-lg border border-slate-300 px-3 py-2"><option>Маркетинг</option><option>Продукт</option><option>R&D</option><option>HR</option></select>
             </div>
           </div>
           <div>
             <label className="mb-1 block text-sm font-medium">Описание</label>
             <textarea className="w-full rounded-lg border border-slate-300 px-3 py-2" rows={3} placeholder="Кратко опиши цели и ожидания" />
           </div>
-          <div className="flex items-center justify-end"><Button...fault(); setModal({ type: null });}}>Опубликовать</Button></div>
+          <div className="flex items-center justify-end">
+            <Button onClick={(e) => { e.preventDefault(); setModal({ type: null }); }}>Опубликовать</Button>
+          </div>
         </form>
       </Modal>
 
@@ -270,7 +272,7 @@ export default function SkillSwitchMVP() {
       >
         <div className="space-y-3">
           <div className="flex items-center gap-2"><Pill>Data Analyst</Pill> → <Pill>Product Analyst</Pill> → <Pill>Analytics Lead</Pill></div>
-          <div className="text-sm text-slate-600">Рекомендуемые ...м, участие в проекте по продуктовой аналитике, менторство.</div>
+          <div className="text-sm text-slate-600">Рекомендуемые шаги: курс по продуктовой аналитике, участие в проекте по продуктовой аналитике, менторство.</div>
         </div>
       </Modal>
     </div>
@@ -283,7 +285,7 @@ function Topbar({ onNav }) {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-cent...t-to-br from-blue-600 to-cyan-500 text-white font-bold">SS</div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 text-white font-bold">SS</div>
           <div className="text-lg font-semibold">SkillSwitch</div>
         </div>
         <nav className="flex items-center gap-1">
