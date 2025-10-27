@@ -1,8 +1,5 @@
 {
   "components": [
-    {
-      "path": "src/App.jsx",
-      "name": "SkillSwitchMVP"
-    }
+    "src/App.jsx"
   ]
 }
